@@ -26,4 +26,27 @@ exports.likePost= async(req,res)=>{
 }
     
 
-}
+};
+exports.unLikePost= async(req,res)=>{
+    try{
+     const {post,like}=req.body;  //post and like is id type
+
+    //find and delete the like collection me se
+    const deletedLike=await Like.findOneAndDelete({post:post,_id:like});
+
+    //udpate the post collection
+    const updatedPost = await Post.findByIdAndUpdate(post,
+        {$pull: {likes: like} }, 
+        {new: true});
+
+ 
+      res.json({
+         post:updatedPost,
+      });
+    }
+    catch(error) { 
+     return res.status(400).json({
+         error: "Error while Liking post",
+     });
+ }
+};
