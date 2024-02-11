@@ -6,7 +6,7 @@ exports.createPost= async(req,res) =>{
         const post=new Post({
             title,body,
         })
-        const savedPost=post.save();
+        const savedPost= await post.save();
 
         res.json({
             post:savedPost,
@@ -19,3 +19,18 @@ exports.createPost= async(req,res) =>{
         });
     }
 };
+
+//need some more testing after completing like wala controleer
+exports.getAllPosts= async(req,res)=>{
+    try{
+          const posts=Post.find().populate("Likes").populate("comments").exec();
+          res.json({
+            posts,
+          })
+    }
+    catch(error){
+        return res.status(400).json({
+            error: "Error while fetching post",
+        });
+    }
+}
