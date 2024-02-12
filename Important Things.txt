@@ -1,0 +1,14 @@
+1)npm init -y
+2)npm i express
+To run:- node index.js
+
+3)npm i nodemon
+in package.json:-
+scripts:{
+  "start": "node index.js",
+   "dev": "nodemon index.js"
+}
+to run:- npm run dev
+
+4)npm i mongoose
+5)npm i dotenv
